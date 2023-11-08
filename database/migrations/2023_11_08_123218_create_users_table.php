@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('document_id')->unique();
             $table->string('password');
-            $table->integer('user_type');
+            $table->enum('user_type', ['common', 'seller']);
             $table->timestamps();
         });
     }

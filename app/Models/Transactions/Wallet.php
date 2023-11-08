@@ -14,4 +14,20 @@ class Wallet extends Model
         'amount',
         'user_id',
     ];
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function user(){
+        $this->belongsTo(User::class);
+    }
+
+    public function subtract($value){
+        $this->update(['balance' => $this->attributes['balance'] - $value]);
+    }
+
+    public function deposit($value){
+        $this->update(['balance' => $this->attributes['balance'] + $value]);
+    }
 }
