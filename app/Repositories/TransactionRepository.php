@@ -13,7 +13,6 @@ class TransactionRepository
         $wallet->deposit($receiver, $value);
         $wallet->subtract($sender, $value);
 
-        //Funciona?
         $result = DB::table('transactions')->insert([
             'sender' => $sender,
             'receiver' => $receiver,
