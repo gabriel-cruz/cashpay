@@ -22,7 +22,7 @@ class TransactionService
         }
 
         if(!$wallet->checkUserAmount($sender, $value)){
-            return response()->json("Usuário não tem o valor suficiente para transferência", 404);
+            return response()->json("Usuário não tem o valor suficiente para transferência", 403);
         }
         //TODO: Request de validação
 
