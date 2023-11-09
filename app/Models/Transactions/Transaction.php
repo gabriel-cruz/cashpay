@@ -15,4 +15,12 @@ class Transaction extends Model
         'receiver',
         'amount',
     ];
+
+    public function sender(){
+        return $this->belongsTo(Wallet::class, 'sender');
+    }
+
+    public function receiver(){
+        return $this->belongsTo(Wallet::class, 'receiver');
+    }
 }
