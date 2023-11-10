@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InsufficientFundsException;
+use App\Exceptions\InvalidUserException;
+use App\Exceptions\UnauthorizedTransferException;
+use App\Exceptions\UnauthorizedUserException;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 
@@ -15,8 +19,11 @@ class TransactionController
     }
 
     public function makeTransaction(Request $request){
-        $fields = $request->only(['value', 'sender', 'receiver']); //tratar o erro caso os campos não estejam corretos
-
-        return $this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']);
+        try{
+            $fields = $request->only(['value', 'sender', 'receiver']);
+            return $this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']);
+        } catch (InvalidUserException | UnauthorizedUserException | InsufficientFundsException | UnauthorizedTransferException $exception){
+            return response()->json($exception->getMessage(), $exception->getCode());
+        }
     }
 }
