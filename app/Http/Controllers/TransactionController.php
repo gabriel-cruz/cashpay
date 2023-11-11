@@ -6,6 +6,7 @@ use App\Exceptions\InsufficientFundsException;
 use App\Exceptions\InvalidUserException;
 use App\Exceptions\UnauthorizedTransferException;
 use App\Exceptions\UnauthorizedUserException;
+use App\Models\User;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 

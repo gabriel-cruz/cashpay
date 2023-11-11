@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\NotificationEvent;
 use App\Exceptions\InsufficientFundsException;
 use App\Exceptions\InvalidUserException;
 use App\Exceptions\UnauthorizedTransferException;
@@ -14,16 +15,17 @@ class TransactionService
     public $wallet;
     public $transaction;
     public $authorization;
+    public $notification;
 
-    public function __construct(UserService $user, WalletService $wallet, TransactionRepository $transaction, AuthorizeService $authorization){
+    public function __construct(UserService $user, WalletService $wallet, TransactionRepository $transaction, AuthorizeService $authorization, NotificationService $notification){
         $this->user = $user;
         $this->wallet = $wallet;
         $this->transaction = $transaction;
         $this->authorization = $authorization;
+        $this->notification = $notification;
     }
 
     public function createTransaction(int $sender, int $receiver, float $value){
-        //não gostei, quero mudar
         if(!$this->user->getUserById($sender) || !$this->user->getUserById($receiver)){
             throw new InvalidUserException("Usuário não encontrado", 404);
         }
@@ -41,8 +43,7 @@ class TransactionService
         }
 
         if($this->transaction->saveTransaction($sender, $receiver, $value)){
-            //TODO: Request de notificação
-
+            $this->notification->notifyUser($receiver);
             return response()->json("Transferência realizada com sucesso");
         }
     }
