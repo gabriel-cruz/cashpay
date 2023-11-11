@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\WalletNotFindException;
 use App\Repositories\WalletRepository;
 
 class WalletService
@@ -13,9 +14,13 @@ class WalletService
     }
 
     public function checkUserAmount(int $user_id, float $value): bool{
-        if($this->getAmount($user_id) < $value){
+        try{
+            if($this->getAmount($user_id) < $value){
+                return false;
+            }
+            return true;
+        }catch (WalletNotFindException $exception){
             return false;
         }
-        return true;
     }
 }

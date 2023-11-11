@@ -42,9 +42,12 @@ class TransactionService
             throw new UnauthorizedTransferException("Transferência não autorizada", 401);
         }
 
-        if($this->transaction->saveTransaction($sender, $receiver, $value)){
-            $this->notification->notifyUser($receiver);
-            return response()->json("Transferência realizada com sucesso");
+        $this->transaction->saveTransaction($sender, $receiver, $value);
+
+        if($this->notification->notifyUser($receiver)->getStatusCode() !== 200){
+            return response()->json("Transferência realizada, mas o serviço de notificações está fora do ar");
         }
+        return response()->json("Transferência realizada com sucesso");
+
     }
 }

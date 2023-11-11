@@ -18,7 +18,6 @@ class TransactionRepository
             'receiver' => $receiver,
             'amount' => $value
         ]);
-
         return $result;
     }
 }

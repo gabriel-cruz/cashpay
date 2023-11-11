@@ -2,9 +2,19 @@
 
 namespace Controllers;
 
+use App\Exceptions\InsufficientFundsException;
+use App\Exceptions\InvalidUserException;
+use App\Exceptions\UnauthorizedUserException;
+use App\Exceptions\WalletNotFindException;
 use App\Http\Controllers\TransactionController;
+use App\Models\Transactions\Wallet;
 use App\Models\User;
+use App\Repositories\TransactionRepository;
+use App\Repositories\WalletRepository;
+use App\Services\TransactionService;
 use App\Services\UserService;
+use App\Services\WalletService;
+use GuzzleHttp\Client;
 use Tests\TestCase;
 
 class TransactionControllerTest extends TestCase
@@ -16,27 +26,56 @@ class TransactionControllerTest extends TestCase
         $this->user_service = $user_service;
     }
 
-    public function testeUserIsRegistered() {
-        $user = User::factory()->create();
+    public function testTrasactionisSuccesseful(){
+        $sender = Wallet::factory()->create(['amount' => 50.00]);
+        $receiver = User::factory()->create(['user_type' => 'seller']);
 
-        $retrieved_user = $this->user_service->getUserById($user->id);
+        $payload = [
+            'value' => 30.00,
+            'sender' => $sender->user_id,
+            'receiver' => $receiver->id,
+        ];
 
-        $this->assertEquals($retrieved_user->id, $user->id);
+        $request = $this->post(route('transactions'), $payload);
+        $request->assertStatus(200);
     }
 
-    public function testUserCanTransfer() {
-        $service = new UserService();
-        $common_user = User::factory()->create(['user_type' => 'common']);
-        $can_transfer = $service->userCanTransfer($common_user->id);
+    public function testInvalidUserException(){
+        $payload = [
+            'value' => 30.00,
+            'sender' => 9999,
+            'receiver' => 1,
+        ];
 
-        $this->assertTrue($can_transfer);
+        $request = $this->post(route('transactions'), $payload);
+        $request->assertStatus(404);
     }
 
-    public function testUserCantTransfer() {
-        $service = new UserService();
-        $seller_user = User::factory()->create(['user_type' => 'seller']);
-        $can_transfer = $service->userCanTransfer($seller_user->id);
+    public function testUnauthorizedUserException(){
+        $seller = User::factory()->create(['user_type' => 'seller']);
+        $receiver = Wallet::factory()->create();
 
-        $this->assertFalse($can_transfer);
+        $payload = [
+            'value' => 30.00,
+            'sender' => $seller->id,
+            'receiver' => $receiver->user_id,
+        ];
+
+        $request = $this->post(route('transactions'), $payload);
+        $request->assertStatus(401);
+    }
+
+    public function testInsufficientFundsException(){
+        $sender = Wallet::factory()->create(['amount' => 50.00]);
+        $receiver = User::factory()->create(['user_type' => 'seller']);
+
+        $payload = [
+            'value' => 60.00,
+            'sender' => $sender->user_id,
+            'receiver' => $receiver->id,
+        ];
+
+        $request = $this->post(route('transactions'), $payload);
+        $request->assertStatus(403);
     }
 }

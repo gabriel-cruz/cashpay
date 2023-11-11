@@ -11,6 +11,7 @@ use App\Services\TransactionService;
 use Illuminate\Http\Request;
 
 
+
 class TransactionController
 {
     public $transaction;
@@ -22,9 +23,11 @@ class TransactionController
     public function makeTransaction(Request $request){
         try{
             $fields = $request->only(['value', 'sender', 'receiver']);
-            return $this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']);
+            dd($this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']));
         } catch (InvalidUserException | UnauthorizedUserException | InsufficientFundsException | UnauthorizedTransferException $exception){
             return response()->json($exception->getMessage(), $exception->getCode());
+        } catch(\Exception $exception){
+            return response()->json('Transação não realizada, tente novamente mais tarde.', 500);
         }
     }
 }
