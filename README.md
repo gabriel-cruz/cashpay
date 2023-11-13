@@ -62,7 +62,7 @@ Caso a transação seja realizada com sucesso, a saída será:
 [imagem da saída]
 
 ## Testes e validação
-Os testes foram escritos utilizando a biblioteca *PHPUnit*. Para rodar os testes da aplicação é necessário rodar, na pasta raiz do projeto, o comando:
+Os testes foram escritos utilizando a biblioteca *PHPUnit*. Para rodar os testes da aplicação é necessário executar, na pasta raiz do projeto, o comando:
 ```sh
 ./vendor/bin/phpunit
 ```
