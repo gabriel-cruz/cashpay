@@ -31,7 +31,7 @@ php artisan db:seed
 De acordo com o design proposto para a solução, de início foram criadas as entidades, as *models*:
 - ***User***: Usado para manipular as funções de usuário;
 - ***Wallet***: A carteira do usuário, onde é armazenado o valor que ele tem na plataforma.
-- ***Transaction**: Entidade responsável por manipular as transações feitas pelos usuários.
+- ***Transaction***: Entidade responsável por manipular as transações feitas pelos usuários.
 
 Partindo para a próxima camada, os *repositories*, as classes foram modeladas para seguirem os princípios do SOLID, principalmente o **Princípio da Responsabilidade Única**, as classes são:
 
