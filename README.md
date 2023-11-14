@@ -15,18 +15,16 @@ A API está organizada de acordo com o *Design Pattern* [*Repository Pattern*](h
 - ***Controllers***: Responsável pela comunicação direta com as rotas, sendo, basicamente os *endpoints* da aplicação;
 
 ### Execução do código
-Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
-
-Install the dependencies and devDependencies and start the server.
-
+Faça o clone do [projeto](https://github.com/gabriel-cruz/cashbank.git).
+No terminal, para carregar todas as dependências do projeto, execute o comando:
 ```sh
-cd dillinger
-npm i
-node app
+composer install
 ```
-
-DOCKER
-migrations
+Em seguida, execute as migrations e os seeds:
+```sh
+php artisan migrate
+php artisan db:seed
+```
 
 ### A solução
 
@@ -47,7 +45,10 @@ Além dos serviços referente a cada repositório, há também as classes que se
 No *controller* há única classe, a *TransactionController*, que foi utilizada para criar o endpoint da API, ela recebe as informações por meio de uma request e onde é realizada todas as chamadas de métodos dos *services* para que a transação seja realizada, além de tratar todas as exceções que podem ocasionar na execução.
 
 ## Execução
-Primeiro, é necessario ativar o servidor da aplicação (DOCKER OU ARTISAN).
+Primeiro, é necessario ativar o servidor da aplicação, para isso utilize o comando no terminal:
+```sh
+php artisan serve
+```
 Com o servidor ativo é necessário utilizar um serviço que possa realizar requisições HTTP, como o [*postman*](https://www.postman.com/).
 Faça uma requisição do tipo *POST* para a url /transaction com o payload no formato:
 ```json
