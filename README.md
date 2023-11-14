@@ -36,7 +36,7 @@ De acordo com o design proposto para a solução, de início foram criadas as en
 Partindo para a próxima camada, os *repositories*, as classes foram modeladas para seguirem os princípios do SOLID, principalmente o **Princípio da Responsabilidade Única**, as classes são:
 
 - ***UserRepository***: Classe responsável para realizar a comunicação com a tabela *users* e coletar informações do usuário.
-- ***WalletRepository***: Utiizado para fazer operações referentes a carteira (*wallets*) do usuário, que são: coletar o valor atual da carteira (getAmount) e fazer depósitos e retiradas de valores (*deposit* e *subtract*).
+- ***WalletRepository***: Utiizado para fazer operações referentes a carteira (*wallets*) do usuário, que são: coletar o valor atual da carteira (*getAmount*) e fazer depósitos e retiradas de valores (*deposit* e *subtract*).
 - ***TransactionRepository***: Tem como objetivo salvar as transações realizadas pelo usuário, acionando a carteira para fazer o depósito e a retirada do valor referente à transação.
 
 A camada *services*, segue o mesmo princípio dos *repositories* e mais uma regra: uma classe *service* só conhece apenas o seu *repository* referente, ou seja, a classe *UserService* só conhece um único *repository*, que é o *UserRepository*. Nessa parte da aplicação, cada entidade tem o seu serviço específico. 
