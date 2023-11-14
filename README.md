@@ -60,7 +60,8 @@ Faça uma requisição do tipo *POST* para a url /transaction com o payload no f
 ```
 
 Caso a transação seja realizada com sucesso, a saída será:
-[imagem da saída]
+![image](https://github.com/gabriel-cruz/cashpay/assets/29681421/5efd9945-2ffa-4ded-b03d-a9bb990e3b05)
+
 
 ## Testes e validação
 Os testes foram escritos utilizando a biblioteca *PHPUnit*. Para rodar os testes da aplicação é necessário executar, na pasta raiz do projeto, o comando:
