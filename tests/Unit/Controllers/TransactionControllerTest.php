@@ -21,19 +21,15 @@ class TransactionControllerTest extends TestCase
 {
     public $user_service;
 
-    public function test__construct(UserService $user_service)
-    {
-        $this->user_service = $user_service;
-    }
 
     public function testTrasactionisSuccesseful(){
         $sender = Wallet::factory()->create(['amount' => 50.00]);
-        $receiver = User::factory()->create(['user_type' => 'seller']);
+        $receiver = Wallet::factory()->create();
 
         $payload = [
             'value' => 30.00,
             'sender' => $sender->user_id,
-            'receiver' => $receiver->id,
+            'receiver' => $receiver->user_id,
         ];
 
         $request = $this->post(route('transactions'), $payload);

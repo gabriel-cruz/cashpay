@@ -44,7 +44,7 @@ class TransactionService
 
         $this->transaction->saveTransaction($sender, $receiver, $value);
 
-        if($this->notification->notifyUser($receiver)->getStatusCode() !== 200){
+        if($this->notification->notifyUser()->getStatusCode() !== 200){
             return response()->json("Transferência realizada, mas o serviço de notificações está fora do ar");
         }
         return response()->json("Transferência realizada com sucesso");

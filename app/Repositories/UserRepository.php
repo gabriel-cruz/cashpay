@@ -7,15 +7,11 @@ use App\Models\User;
 
 class UserRepository
 {
-    public function findUserById(int $id){
-        return DB::table('users')->find($id);
+    public function findUserById(int $userId){
+        return DB::table('users')->find($userId);
     }
 
-    /*public function findUserByDocument(string $document_id){
-        return DB::table('users')->where('document_id', $document_id)->get();
-    }*/
-
-    public function getUserType(int $id): string{
-         return DB::table('users')->where('id', $id)->value('user_type');
+    public function getUserType(int $userId): string{
+         return DB::table('users')->where('id', $userId)->value('user_type');
     }
 }

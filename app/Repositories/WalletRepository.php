@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class WalletRepository
 {
-    public function getAmount(int $user_id): float{
-        $result = DB::table('wallets')->where('user_id', $user_id)->value('amount');
+    public function getAmount(int $userId): float{
+        $result = DB::table('wallets')->where('user_id', $userId)->value('amount');
 
         if(is_null($result)){
             throw new WalletNotFindException('O usuário não tem carteira', 404);
@@ -17,15 +17,15 @@ class WalletRepository
         return $result;
     }
 
-    public function deposit(int $user_id, $value){
-        $newValue = $this->getAmount($user_id) + $value;
+    public function deposit(int $userId, $value){
+        $newValue = $this->getAmount($userId) + $value;
 
-        DB::table('wallets')->where('user_id', $user_id)->update(['amount' => $newValue]);
+        DB::table('wallets')->where('user_id', $userId)->update(['amount' => $newValue]);
     }
 
-    public function subtract(int $user_id, $value){
-        $newValue = $this->getAmount($user_id) - $value;
+    public function subtract(int $userId, $value){
+        $newValue = $this->getAmount($userId) - $value;
 
-        DB::table('wallets')->where('user_id', $user_id)->update(['amount' => $newValue]);
+        DB::table('wallets')->where('user_id', $userId)->update(['amount' => $newValue]);
     }
 }

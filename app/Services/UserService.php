@@ -6,20 +6,20 @@ use App\Repositories\UserRepository;
 
 class UserService
 {
-    public function getUserById(int $user_id){
+    public function getUserById(int $userId){
         $repository = new UserRepository();
 
-        return $repository->findUserById($user_id);
+        return $repository->findUserById($userId);
     }
 
-    public function getUserType(int $user_id): string{
+    public function getUserType(int $userId): string{
         $repository = new UserRepository();
 
-        return $repository->getUserType($user_id);
+        return $repository->getUserType($userId);
     }
 
-    public function userCanTransfer(int $user_id): bool{
-        if($this->getUserType($user_id) !== 'common'){
+    public function userCanTransfer(int $userId): bool{
+        if($this->getUserType($userId) !== 'common'){
             return false;
         }
         return true;
