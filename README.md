@@ -1,6 +1,6 @@
-# Safecash
+# Cashpay
 
-Safecash é uma API responsável por realizar transações monetárias entre os usuários.
+Cashpay é uma API responsável por realizar transações monetárias entre os usuários.
 
 ### Arquitetura e stack
 Detalhes da stack:
