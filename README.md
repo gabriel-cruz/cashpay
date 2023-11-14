@@ -1,6 +1,6 @@
 # Safecash
 
-Safecash é uma API responsável por realizar transações monetárias entre usuários e entre usuários e lojistas.
+Safecash é uma API responsável por realizar transações monetárias entre os usuários.
 
 ### Arquitetura e stack
 Detalhes da stack:
