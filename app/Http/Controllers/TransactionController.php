@@ -23,7 +23,7 @@ class TransactionController
     public function makeTransaction(Request $request){
         try{
             $fields = $request->only(['value', 'sender', 'receiver']);
-            dd($this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']));
+            $this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']);
         } catch (InvalidUserException | UnauthorizedUserException | InsufficientFundsException | UnauthorizedTransferException $exception){
             return response()->json($exception->getMessage(), $exception->getCode());
         } catch(\Exception $exception){
