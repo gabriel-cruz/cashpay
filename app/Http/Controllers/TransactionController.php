@@ -28,7 +28,7 @@ class TransactionController
             return $this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']);
         } catch (InvalidUserException | UnauthorizedUserException | InsufficientFundsException | WalletNotFindException | UnauthorizedTransferException $exception){
             return response()->json($exception->getMessage(), $exception->getCode());
-        } catch(\Exception $exception){
+        } catch(\Exception){
             return response()->json('Transação não realizada, tente novamente mais tarde.', 500);
         }
     }

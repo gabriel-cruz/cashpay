@@ -19,7 +19,7 @@ class WalletService
                 return false;
             }
             return true;
-        }catch (WalletNotFindException $exception){
+        }catch (WalletNotFindException){
             return false;
         }
     }
