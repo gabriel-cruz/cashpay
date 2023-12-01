@@ -11,19 +11,14 @@ use App\Repositories\TransactionRepository;
 
 class TransactionService
 {
-    public $user;
-    public $wallet;
-    public $transaction;
-    public $authorization;
-    public $notification;
 
-    public function __construct(UserService $user, WalletService $wallet, TransactionRepository $transaction, AuthorizeService $authorization, NotificationService $notification){
-        $this->user = $user;
-        $this->wallet = $wallet;
-        $this->transaction = $transaction;
-        $this->authorization = $authorization;
-        $this->notification = $notification;
-    }
+    public function __construct(
+        public UserService $user,
+        public WalletService $wallet,
+        public TransactionRepository $transaction,
+        public AuthorizeService $authorization,
+        public NotificationService $notification
+    ){}
 
     public function createTransaction(int $sender, int $receiver, float $value){
         if(!$this->user->getUserById($sender) || !$this->user->getUserById($receiver)){

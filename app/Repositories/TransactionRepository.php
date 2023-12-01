@@ -6,12 +6,13 @@ use Illuminate\Support\Facades\DB;
 
 class TransactionRepository
 {
+    public function __construct(
+        public WalletRepository $wallet
+    ){}
 
     public function saveTransaction(int $sender, int $receiver, float $value){
-        $wallet = new WalletRepository();
-
-        $wallet->deposit($receiver, $value);
-        $wallet->subtract($sender, $value);
+        $this->wallet->deposit($receiver, $value);
+        $this->wallet->subtract($sender, $value);
 
         $result = DB::table('transactions')->insert([
             'sender' => $sender,

@@ -7,10 +7,12 @@ use App\Repositories\WalletRepository;
 
 class WalletService
 {
-    public function getAmount(int $userId): float{
-        $wallet = new WalletRepository();
+    public function __construct(
+        public WalletRepository $wallet
+    ){}
 
-        return $wallet->getAmount($userId);
+    public function getAmount(int $userId): float{
+        return $this->wallet->getAmount($userId);
     }
 
     public function checkUserAmount(int $userId, float $value): bool{

@@ -15,11 +15,9 @@ use Illuminate\Http\Request;
 
 class TransactionController
 {
-    public $transaction;
-
-    public function __construct(TransactionService $transaction){
-        $this->transaction = $transaction;
-    }
+    public function __construct(
+        public TransactionService $transaction
+    ){}
 
     public function makeTransaction(Request $request){
 
