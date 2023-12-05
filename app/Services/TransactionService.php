@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Events\NotificationEvent;
 use App\Exceptions\InsufficientFundsException;
 use App\Exceptions\InvalidUserException;
 use App\Exceptions\UnauthorizedTransferException;
@@ -13,11 +12,11 @@ class TransactionService
 {
 
     public function __construct(
-        public UserService $user,
-        public WalletService $wallet,
+        public UserService           $user,
+        public WalletService         $wallet,
         public TransactionRepository $transaction,
-        public AuthorizeService $authorization,
-        public NotificationService $notification
+        public AuthorizeRepository   $authorization,
+        public NotificationRepository $notification
     ){}
 
     public function createTransaction(int $sender, int $receiver, float $value){

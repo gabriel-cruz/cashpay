@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\NotificationEvent;
-use App\Services\NotificationService;
+use App\Services\NotificationRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -18,7 +18,7 @@ class NotificationListener
      */
     public function handle(NotificationEvent $event): string
     {
-        $notificationService = new NotificationService();
+        $notificationService = new NotificationRepository();
 
         return $notificationService->notifyUser($event->user)->content();
     }

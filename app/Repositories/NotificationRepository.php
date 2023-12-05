@@ -5,7 +5,7 @@ namespace App\Services;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class NotificationService
+class NotificationRepository
 {
     public function __construct(
         public Client $client
