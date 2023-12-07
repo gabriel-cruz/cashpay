@@ -10,16 +10,19 @@ class UserService
         public UserRepository $repository
     ){}
 
-    public function getUserById(int $userId){
+    public function getUserById(int $userId)
+    {
         return $this->repository->findUserById($userId);
     }
 
-    public function getUserType(int $userId): string{
+    public function getUserType(int $userId): string
+    {
         return $this->repository->getUserType($userId);
     }
 
-    public function userCanTransfer(int $userId): bool{
-        if($this->getUserType($userId) !== 'common'){
+    public function userCanTransfer(int $userId): bool
+    {
+        if ($this->getUserType($userId) !== 'common') {
             return false;
         }
         return true;

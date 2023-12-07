@@ -19,15 +19,21 @@ class TransactionController
         public TransactionService $transaction
     ){}
 
-    public function makeTransaction(Request $request){
+    public function makeTransaction(Request $request)
+    {
 
         try{
             $fields = $request->only(['value', 'sender', 'receiver']);
-            return $this->transaction->createTransaction($fields['sender'], $fields['receiver'], $fields['value']);
-        } catch (InvalidUserException | UnauthorizedUserException | InsufficientFundsException | WalletNotFindException | UnauthorizedTransferException $exception){
+            return $this->transaction
+                ->createTransaction($fields['sender'], $fields['receiver'], $fields['value']);
+
+        } catch (InvalidUserException | UnauthorizedUserException | InsufficientFundsException |
+                WalletNotFindException | UnauthorizedTransferException $exception) {
             return response()->json($exception->getMessage(), $exception->getCode());
-        } catch(\Exception){
-            return response()->json('Transação não realizada, tente novamente mais tarde.', 500);
+
+        } catch(\Exception) {
+            return response()
+                ->json('Transação não realizada, tente novamente mais tarde.', 500);
         }
     }
 }

@@ -10,7 +10,8 @@ class TransactionRepository
         public WalletRepository $wallet
     ){}
 
-    public function saveTransaction(int $sender, int $receiver, float $value){
+    public function saveTransaction(int $sender, int $receiver, float $value)
+    {
         $this->wallet->deposit($receiver, $value);
         $this->wallet->subtract($sender, $value);
 

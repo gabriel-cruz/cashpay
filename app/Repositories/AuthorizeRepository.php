@@ -11,11 +11,13 @@ class AuthorizeRepository
         public Client $client
     ){}
 
-    public function authorizeTransaction(){
+    public function authorizeTransaction()
+    {
         try {
-            return $this->client->get('https://run.mocky.io/v3/5794d450-d2e2-4412-8131-73d0293ac1cc');
+            return $this->client
+                ->get('https://run.mocky.io/v3/5794d450-d2e2-4412-8131-73d0293ac1cc');
 
-        } catch (GuzzleException){
+        } catch (GuzzleException) {
             return response()->json('Não autorizado', 401);
         }
 
